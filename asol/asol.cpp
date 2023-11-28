@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 			strcmp(opcode, "jmnge") && strcmp(opcode, "bt") &&
 			strcmp(opcode, "cmp") && strcmp(opcode, "rcl") &&
 			strcmp(opcode, "#ximul") && strcmp(opcode, "#xor") &&
-			strcmp(opcode, "#mov") && strcmp(opcode, ".fill")) {
+			strcmp(opcode, "#div") && strcmp(opcode, ".fill")) {
 			printf("Error: unrecognized opcode %s at address %d!\n", opcode, address);
 			exit(1);
 		}
@@ -96,8 +96,11 @@ int main(int argc, char* argv[])
 			!strcmp(opcode, "lw") || !strcmp(opcode, "sw") ||
 			!strcmp(opcode, "beq") || !strcmp(opcode, "jalr") ||
 			!strcmp(opcode, "div") ||
+			!strcmp(opcode, "#div") ||
 			!strcmp(opcode, "ximul") ||
+			!strcmp(opcode, "#ximul") ||
 			!strcmp(opcode, "xor") ||
+			!strcmp(opcode, "#xor") ||
 			!strcmp(opcode, "shl") ||
 			!strcmp(opcode, "jmae") ||
 			!strcmp(opcode, "jmnge") ||
@@ -110,7 +113,9 @@ int main(int argc, char* argv[])
 		if (!strcmp(opcode, "add") || !strcmp(opcode, "nand") ||
 			!strcmp(opcode, "div") || !strcmp(opcode, "ximul") ||
 			!strcmp(opcode, "xor") || !strcmp(opcode, "mov") ||
-			!strcmp(opcode, "shl") || !strcmp(opcode, "rcl")) {
+			!strcmp(opcode, "shl") || !strcmp(opcode, "rcl") ||
+			!strcmp(opcode, "#div") || !strcmp(opcode, "#ximul") ||
+			!strcmp(opcode, "#xor")) {
 			testRegArg(arg2);
 		}
 		if (!strcmp(opcode, "dec") || !strcmp(opcode, "mov")) {
@@ -192,6 +197,9 @@ int main(int argc, char* argv[])
 		}
 		else if (!strcmp(opcode, "div")) {
 			num = writeInstructionTypeR(DIV, 0, arg0, arg1, arg2);
+		}
+		else if (!strcmp(opcode, "#div")) {
+			num = writeInstructionTypeR(DIV, 1, arg0, arg1, arg2);
 		}
 		else if (!strcmp(opcode, "ximul")) {
 			num = writeInstructionTypeR(XIMUL, 0, arg0, arg1, arg2);

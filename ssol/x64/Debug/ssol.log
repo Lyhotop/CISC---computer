@@ -1,3 +1,15 @@
-﻿  ssol.c
-E:\3 курс\АК\Курсова робота\ProjectsVS(asol_ssol)\ssol\ssol.c(127,32): warning C4293: '>>': shift count negative or too big, undefined behavior
-  ssol.vcxproj -> E:\3 курс\АК\Курсова робота\ProjectsVS(asol_ssol)\ssol\x64\Debug\ssol.exe
+﻿  ssol.cpp
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(118,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(129,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(134,17): warning C4244: '+=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(140,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(202,17): warning C4244: '+=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(207,17): warning C4244: '+=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(216,15): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(240,11): warning C4477: 'printf' : format string '%lli' requires an argument of type '__int64', but variadic argument 1 has type 'int'
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(240,11): message : consider using '%i' in the format string
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(240,11): message : consider using '%I32i' in the format string
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(259,10): warning C4477: 'printf' : format string '%lld' requires an argument of type '__int64', but variadic argument 1 has type 'int'
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(259,10): message : consider using '%d' in the format string
+E:\3 курс\АК\Курсова робота\CISC---computer\ssol\ssol.cpp(259,10): message : consider using '%I32d' in the format string
+  ssol.vcxproj -> E:\3 курс\АК\Курсова робота\CISC---computer\ssol\x64\Debug\ssol.exe

@@ -27,7 +27,7 @@
 #define RCL 17
 typedef struct stateStruct {
 	int pc;
-	long long int* mem = new long long int[NUMMEMORY];;
+	long long int* mem = new long long int[NUMMEMORY];
 	long long int reg[NUMREGS];
 	int numMemory;
 	int CF;
@@ -35,7 +35,7 @@ typedef struct stateStruct {
 
 void printState(stateType*);
 void run(stateType);
-int convertNum(int);
+long long int convertNum(int);
 
 int main(int argc, char* argv[])
 {
@@ -43,10 +43,10 @@ int main(int argc, char* argv[])
 	char line[MAXLINELENGTH];
 	stateType state;
 	FILE* filePtr;
-		if (argc != 2) {
-			printf("Error: usage: %s <machine-code file>!\n", argv[0]);
-			exit(1);
-		}
+	if (argc != 2) {
+		printf("Error: usage: %s <machine-code file>!\n", argv[0]);
+		exit(1);
+	}
 	// Initialize memories and registers.
 	for (i = 0; i < NUMMEMORY; i++) {
 		state.mem[i] = 0;
@@ -81,11 +81,12 @@ int main(int argc, char* argv[])
 }
 void run(stateType state)
 {
-	int arg0, arg1, arg2, addressField;
+	int arg0, arg1, arg2;
 	int instructions = 0;
 	int opcode, opcodeType = 0;
-	int maxMem = -1; 
-	for (; 1; instructions++) { 
+	long long int addressField;
+	int maxMem = -1;
+	for (; 1; instructions++) {
 		printState(&state);
 		if (state.pc < 0 || state.pc >= NUMMEMORY) {
 			printf("PC went out of the memory range!\n");
@@ -97,8 +98,8 @@ void run(stateType state)
 		opcode = state.mem[state.pc] >> 36 & 0x1F;
 		arg0 = (state.mem[state.pc] >> 30) & 0x3F;
 		arg1 = (state.mem[state.pc] >> 24) & 0x3F;
-		arg2 = state.mem[state.pc] & 0x3F; 
-		addressField = convertNum(state.mem[state.pc] & 0xFFFFFF); 
+		arg2 = state.mem[state.pc] & 0x3F;
+		addressField = convertNum(state.mem[state.pc] & 0xFFFFFF);
 		state.pc++;
 		if (opcode == ADD) {
 			state.reg[arg2] = state.reg[arg0] + state.reg[arg1];
@@ -112,10 +113,7 @@ void run(stateType state)
 				printf("Address out of bounds!\n");
 				exit(1);
 			}
-			long long int temp = state.mem[state.reg[arg0] + addressField];
-			state.reg[arg1] = temp;
-			printf("OBA: %lld\n", state.mem[state.reg[arg0] + addressField]);
-			printf("OBA1: %d\n", state.reg[arg1]);
+			state.reg[arg1] = state.mem[state.reg[arg0] + addressField];
 			if (state.reg[arg0] + addressField > maxMem) {
 				maxMem = state.reg[arg0] + addressField;
 			}
@@ -148,13 +146,20 @@ void run(stateType state)
 			printf("Total of %d instructions executed.\n", instructions + 1);
 			printf("Final state of machine:\n");
 			printState(&state);
+			printf("\n< Created by @Lyhotop >\n");
 			exit(0);
 		}
 		else if (opcode == DEC) {
 			state.reg[arg0]--;
 		}
 		else if (opcode == DIV) {
-			state.reg[arg2] = abs(state.reg[arg0] / state.reg[arg1]);
+			if (opcodeType == 0)
+			{
+				state.reg[arg2] = abs(state.reg[arg0] / state.reg[arg1]);
+			}
+			else {
+				state.reg[state.reg[arg2]] = abs(state.reg[state.reg[arg0]] / state.reg[state.reg[arg1]]);
+			}
 		}
 		else if (opcode == XIMUL) {
 			if (opcodeType == 0)
@@ -218,23 +223,23 @@ void run(stateType state)
 				state.CF = 0;
 			}
 		}
-		else if (opcode == RCL) {//***********************************
+		else if (opcode == RCL) {
 			state.reg[arg2] = state.reg[arg0];
-			for (int i = 0; i < (state.reg[arg1]); i++) // Обмежено зсув до 6 бітів
+			for (int i = 0; i < (state.reg[arg1]); i++) 
 			{
-				state.CF = (state.reg[arg2] & 0x20) >> 5; // Змінено бітове маскування та зсув для лівого зсуву
-				state.reg[arg2] = state.reg[arg2] << 1; // Змінено зсув вліво
+				state.CF = (state.reg[arg2] & 0x20) >> 5; 
+				state.reg[arg2] = state.reg[arg2] << 1; 
 
 				if (state.CF == 1)
 				{
-					state.reg[arg2] = state.reg[arg2] | 1; // Змінено бітову операцію OR та значення
+					state.reg[arg2] = state.reg[arg2] | 1; 
 				}
 			}
 		}
 		else {
 			printf("error: illegal opcode 0x%lli\n", opcode);
 			exit(1);
-			}
+		}
 
 		state.reg[0] = 0;
 	}
@@ -256,12 +261,11 @@ printState(stateType* statePtr)
 	printf("CF = %d\n", statePtr->CF);
 	printf("END STATE\n");
 }
-int
-convertNum(int num)
+long long int convertNum(int num)
 {
-	/* convert a 16-bit number into a 32-bit Sun integer */
-	if (num & (1 << 15)) {
-		num -= (1 << 16);
+	/* convert a 24-bit number into a 64-bit integer */
+	if (num & (1 << 23)) {
+		num -= (1 << 24);
 	}
 	return(num);
 }

@@ -1,1 +1,1 @@
-E:\3 курс\АК\Курсова робота\ProjectsVS(asol_ssol)\asol\x64\Debug\asol.exe
+E:\3 курс\АК\Курсова робота\CISC---computer\asol\x64\Debug\asol.exe
