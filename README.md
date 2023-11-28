@@ -30,3 +30,7 @@ The *repository* contains documentation on the development of my CISC-computer.
   Run **ssol.exe**. Write in *CMD*: ```ssol.exe fileName.mc>fileName.txt```.
 
 The *"fileName.txt"* file contains the result of the execution of the assembly program "fileName.as".
+
+![image](https://github.com/Lyhotop/CISC---computer/assets/128158238/aaf4f23d-11ec-49e7-8bae-40b197f7531b)
+
+
